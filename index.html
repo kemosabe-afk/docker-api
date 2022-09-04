@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>Enter employee name:</p>
+<input/> 
+<p class = "username"></p>
+<script>
+const input=document.querySelector("input")
+const username=document.querySelector(".username")
+
+async function handleGetJson(){
+let res = await fetch("http://127.0.0.1/api/index.php")
+let b = await res.json()
+input.addEventListener("change", handlechange )
+
+function handlechange(e){
+let user = b.find((item)=>item.name.toLowerCase() === e.target.value.toLowerCase())
+username.innerHTML=`<p><strong>Name:</strong> ${user.name  ?? ""}</p>
+                    <p><strong>Email:</strong> ${user.email  ?? ""}</p> 
+                    <p><strong>Designation:</strong> ${user.designation  ?? ""}</p>`
+	}
+  }
+handleGetJson()
+</script>
+</body>
+</html>
